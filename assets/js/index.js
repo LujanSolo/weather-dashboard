@@ -1,6 +1,4 @@
-let apiKey = "103e006da2753eff78aaa1912a390144";
-
-let url = "https://api.openweathermap.org";
+let url = "http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid=103e006da2753eff78aaa1912a390144";
 
 let searchForm = document.getElementById('#city-search');
 let searchInput = document.getElementById('#input-field');
@@ -12,8 +10,6 @@ let submitBtn = document.getElementById('#search-btn');
 function renderWeather() {}
 
 function fetchWeather(query) {
-  let url = "https://api.openweathermap.org?&api=103e006da2753eff78aaa1912a390144"
-
   fetch(url)
     .then((response) 
 }
@@ -98,5 +94,3 @@ history.addEventListener('click', handleSearchHistory);
 //*dynamically create elements in Search History (add text content of city name) and APPEND to search history
 
 //* store city names in Local Storage
-
-
