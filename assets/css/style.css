@@ -1,3 +1,8 @@
+h2 {
+  font-weight: 700;
+}
+
+
 #masthead {
   background-image: linear-gradient(to left, darkblue, lightblue);
 };
