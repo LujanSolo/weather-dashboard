@@ -2,14 +2,21 @@ let apiKey = "103e006da2753eff78aaa1912a390144";
 
 let url = "https://api.openweathermap.org";
 
-let searchForm = document.querySelector('#city-search');
-let searchInput = document.querySelector('#input-field');
-let history = document.querySelector('#history');
-let today  = document.querySelector('#today');
-let fiveDay = document.querySelector('#five-day');
-let submitBtn = document.querySelector('#search-btn');
+let searchForm = document.getElementById('#city-search');
+let searchInput = document.getElementById('#input-field');
+let history = document.getElementById('#history');
+let today  = document.getElementById('#today');
+let fiveDay = document.getElementById('#five-day');
+let submitBtn = document.getElementById('#search-btn');
 
+function renderWeather() {}
 
+function fetchWeather(query) {
+  let url = "https://api.openweathermap.org?&api=103e006da2753eff78aaa1912a390144"
+
+  fetch(url)
+    .then((response) 
+}
 
 
 
