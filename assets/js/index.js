@@ -1,5 +1,3 @@
-let url = "http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid=103e006da2753eff78aaa1912a390144";
-
 let searchForm = document.getElementById('#city-search');
 let searchInput = document.getElementById('#input-field');
 let history = document.getElementById('#history');
@@ -7,12 +5,17 @@ let today  = document.getElementById('#today');
 let fiveDay = document.getElementById('#five-day');
 let submitBtn = document.getElementById('#search-btn');
 
-function renderWeather() {}
+// function renderWeather() {}
 
 function fetchWeather(query) {
+  let url = "http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=32f1cece631ee89046fe3328471647a0";
+
   fetch(url)
-    .then((response) 
+  .then((response) => response.json())
+  .then((data) => console.log(data));
 }
+fetchWeather()
+
 
 
 
@@ -58,31 +61,31 @@ function fetchWeather(query) {
 
 // WHEN I click on a city in the search history
 // THEN I am again presented with current and future conditions for that city
-function handleSearchSubmit(event){
-  event.preventDefault();
-  console.log('submit=clicked');
+// function handleSearchSubmit(event){
+//   event.preventDefault();
+//   console.log('submit=clicked');
 
-  if(!searchInput.value){
-    return;
-  }
-  let city = searchInput.value.trim();
-  console.log(city);
-  fetchCoords(city);
-  // to be done later
-};
+//   if(!searchInput.value){
+//     return;
+//   }
+//   let city = searchInput.value.trim();
+//   console.log(city);
+//   fetchCoords(city);
+//   // to be done later
+// };
 
-//* get coordinates from api weather data for function
-function fetchCoords(city) {
-  console.log("fetchCoords city = ", city);
-}
+// //* get coordinates from api weather data for function
+// function fetchCoords(city) {
+//   console.log("fetchCoords city = ", city);
+// }
 
-function handleSearchHistory(event){
-  event.preventDefault();
-  console.log('history=clicked')
-};
+// function handleSearchHistory(event){
+//   event.preventDefault();
+//   console.log('history=clicked')
+// };
 
-searchForm.addEventListener('submit', handleSearchSubmit);
-history.addEventListener('click', handleSearchHistory);
+// searchForm.addEventListener('submit', handleSearchSubmit);
+// history.addEventListener('click', handleSearchHistory);
 
 
 //*make fetch call from coords, add filters for specific details; api key fed into url search.
