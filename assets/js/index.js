@@ -16,7 +16,7 @@ function renderWeather(weather) {
   results.append(city);
 
   let temp = document.createElement("p");
-  temp.textContent = "Temp: " + weather.main.temp + " F";
+  temp.textContent = "Temp: " + weather.main.temp + " F°";
   results.append(temp);
 
   let wind = document.createElement("p");
@@ -27,8 +27,8 @@ function renderWeather(weather) {
   humidity.textContent = "Humidity: " + weather.main.humidity + "%";
   results.append(humidity);
 
-  let uvIndex = document.createElement("p");
-  uvIndex.textContent = "UV Index: " + weather.main.uvindex
+  // let uvIndex = document.createElement("p");
+  // uvIndex.textContent = "UV Index: " + weather.main.uvindex
   
 };
 
@@ -40,7 +40,7 @@ function fetchWeather(query) {
   .then((response) => response.json())
   .then((data) => renderWeather(data));
 }
-fetchWeather("Los Angeles")
+fetchWeather("Columbus")
 
 
 // GIVEN a weather dashboard with form inputs
