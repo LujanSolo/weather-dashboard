@@ -12,26 +12,21 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <title>Weather Dashboard</title>
   </head>
-<!-- 
-  BELOW WILL BE A MASTER CONTAINER containing many row/column subsets to make use of 5.2's grid system
-  -first, the "not a navbar" navbar
--->
+
+<!-- HEADER WITH TITLE -->
   <body>
-    <div  class="container-fluid">
-      <div id="masthead" class="row navbar">
-        <div class="col-12 text-center text-light">
-          <h1>Weather Dashboard</h1>
-        </div>
-      </div>
-<!-- 
-  BELOW is the left column containing the search field and search history. All of this is still within the master container established on line 20
-  -starting with the h4
--->
+    <header>
+      <h1 id="masthead" class="text-center text-white py-2">Weather Dashboard</h1>
+    </header>
+
+<!--Container/row/column grib breakdown for bootstrap 5.2 with lg and small splits for the screen size/media query -->
+  <main>
+    <div class="container-fluid">
       <div class="row p-4">    
-        <div id="search-block" class="col-3">
+        <div id="search-block" class="col-sm-12 col-lg-3">
           <div class="row">
             <div class="col-12">
-              <h5>Search for a City:</h4>
+              <h5>Search for a City:</h5>
             </div>
           </div> 
 <!-- 

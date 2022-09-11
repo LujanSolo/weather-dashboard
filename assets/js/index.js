@@ -1,10 +1,15 @@
 let userQuery = document.getElementById("user-input");
 
+// function renderWeather(weather) {
+//   let results = document.getElementById("results-section");
+//   //* show CITY NAME, DATE, WEATHER ICON, TEMP, WIND, HUMIDITY, and UV INDEX with COLOR CODED reference
+//   let city = document.createElement("h2");
+//   city.textContent =  
+// }
 
-// function renderWeather() {}
-
+//* BELOW - a function to fetch weather for a particular city
 function fetchWeather(query) {
-  let url = "http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=32f1cece631ee89046fe3328471647a0";
+  let url = "http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid=32f1cece631ee89046fe3328471647a0";
 
   fetch(url)
   .then((response) => response.json())
