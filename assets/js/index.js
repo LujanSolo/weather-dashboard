@@ -1,28 +1,46 @@
-let userQuery = document.getElementById("user-input");
+let userInput = document.querySelector("#user-input");
+let searchBtn = document.querySelector("#search-btn");
+let apiKey = "32f1cece631ee89046fe3328471647a0";
+let forecast = document.querySelector("#main-display");
 
-// function renderWeather(weather) {
-//   let results = document.getElementById("results-section");
-//   //* show CITY NAME, DATE, WEATHER ICON, TEMP, WIND, HUMIDITY, and UV INDEX with COLOR CODED reference
-//   let city = document.createElement("h2");
-//   city.textContent =  
-// }
+
+
+//* send weather results to the main display (the user's search result)
+function renderWeather(weather) {
+  let results = document.querySelector("#main-display");
+  //* show CITY NAME, DATE, WEATHER ICON, TEMP, WIND, HUMIDITY, and UV INDEX with COLOR CODED reference
+  
+  let city = document.createElement("h2");
+  city.textContent = weather.name + moment().format();
+  results.append(city);
+
+  let temp = document.createElement("p");
+  temp.textContent = "Temp: " + weather.main.temp + " F";
+  results.append(temp);
+
+  let
+  
+}
 
 //* BELOW - a function to fetch weather for a particular city
 function fetchWeather(query) {
-  let url = "http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid=32f1cece631ee89046fe3328471647a0";
+  let url = "https://api.openweathermap.org/data/2.5/weather?q=" + query + "&units=imperial&appid=32f1cece631ee89046fe3328471647a0";
 
   fetch(url)
   .then((response) => response.json())
   .then((data) => console.log(data));
 }
-fetchWeather()
-
-
+fetchWeather("Long Beach")
 
 
 // GIVEN a weather dashboard with form inputs
 // WHEN I search for a city
 //*city search. search BUTTON
+
+
+
+
+
 
 
 // THEN I am presented with current and future conditions for that city and that city is added to the search history
@@ -66,10 +84,10 @@ fetchWeather()
 //   event.preventDefault();
 //   console.log('submit=clicked');
 
-//   if(!searchInput.value){
+//   if(!userInput.value){
 //     return;
 //   }
-//   let city = searchInput.value.trim();
+//   let city = userInput.value.trim();
 //   console.log(city);
 //   fetchCoords(city);
 //   // to be done later
