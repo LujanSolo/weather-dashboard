@@ -2,32 +2,27 @@ let userInput = document.querySelector("#user-input");
 let searchBtn = document.querySelector("#search-btn");
 let apiKey = "32f1cece631ee89046fe3328471647a0";
 // let forecast = document.querySelector("#main-display");
-let unixTimestamp = weather.coord.dt;
+
 
 //TODO -add MOMENT.JS in order to add date to main display
+
 //* send weather results to the main display (the user's search result)
 function renderWeather(weather) {
   console.log(weather);
+  
   //*to easily access the array of description data 
   let weatherDetails = weather.weather[0]; 
-
+  let unixTimestamp = weather.dt*1000;
+  
   //*Build a UNIX timestamp converter
-  function timeConvert(unixTimestamp) {
-    let date = new Date (unixTimestamp *1000); //*js works in milliseconds, converting to seconds
-    let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    let year = date.getFullYear();
-    let month = months[date.getMonth()];
-    
-  }
-  
-  
+  let day = (new Date(unixTimestamp).toDateString());
 
 
 //* show CITY NAME, DATE, WEATHER ICON, TEMP, WIND, HUMIDITY, and UV INDEX with COLOR CODED reference
   let results = document.querySelector("#main-display");
   
   let city = document.createElement("h2");
-  city.textContent = weather.name; //*add date and weather icon
+  city.textContent = weather.name + ', ' + day; //*add date and weather icon
   results.append(city);
 
   let temp = document.createElement("p");
@@ -41,11 +36,11 @@ function renderWeather(weather) {
   let humidity = document.createElement("p");
   humidity.textContent = "Humidity: " + weather.main.humidity + "%";
   results.append(humidity);
+};
 
   // let uvIndex = document.createElement("p");
   // uvIndex.textContent = "UV Index: " + weather.main.uvindex
   
-};
 
 //* BELOW - a function to fetch weather for a particular city
 function fetchWeather(query) {
@@ -54,8 +49,9 @@ function fetchWeather(query) {
   fetch(url)
   .then((response) => response.json())
   .then((data) => renderWeather(data));
-}
-fetchWeather("San Diego")
+};
+
+fetchWeather("Long Beach")
 
 
 // GIVEN a weather dashboard with form inputs
@@ -132,12 +128,12 @@ fetchWeather("San Diego")
 // history.addEventListener('click', handleSearchHistory);
 
 
-//*make fetch call from coords, add filters for specific details; api key fed into url search.
+// *make fetch call from coords, add filters for specific details; api key fed into url search.
 
-//* console.log(data)  - look for lat and long. store in variables and pass along as needed
+// * console.log(data)  - look for lat and long. store in variables and pass along as needed
 
-//* call another api with all details (use proven version 2.5) for temp, 5 day, et al
+// * call another api with all details (use proven version 2.5) for temp, 5 day, et al
 
-//*dynamically create elements in Search History (add text content of city name) and APPEND to search history
+// *dynamically create elements in Search History (add text content of city name) and APPEND to search history
 
-//* store city names in Local Storage
+// * store city names in Local Storage
