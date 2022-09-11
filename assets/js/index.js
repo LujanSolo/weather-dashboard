@@ -1,9 +1,5 @@
-let searchForm = document.getElementById('#city-search');
-let searchInput = document.getElementById('#input-field');
-let history = document.getElementById('#history');
-let today  = document.getElementById('#today');
-let fiveDay = document.getElementById('#five-day');
-let submitBtn = document.getElementById('#search-btn');
+let userQuery = document.getElementById("user-input");
+
 
 // function renderWeather() {}
 
