@@ -1,7 +1,7 @@
-h2 {
-  font-weight: 700;
+h4 {
+  font-weight: 600;
 }
 
 #masthead {
-  background-image: linear-gradient(to left, rgb(44, 0, 139), rgb(190, 136, 22));
+  background-image: linear-gradient(to left, rgb(123, 14, 169), rgb(12, 107, 239));
 };
