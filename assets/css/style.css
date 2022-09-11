@@ -1,3 +1,7 @@
+* {
+  font-family: "Recursive", sans-serif;
+}
+
 h4 {
   font-weight: 600;
 }
@@ -5,3 +9,4 @@ h4 {
 #masthead {
   background-image: linear-gradient(to left, rgb(123, 14, 169), rgb(12, 107, 239));
 };
+
