@@ -1,26 +1,36 @@
 let userInput = document.querySelector("#user-input");
 let searchBtn = document.querySelector("#search-btn");
 let apiKey = "32f1cece631ee89046fe3328471647a0";
-let forecast = document.querySelector("#main-display");
+// let forecast = document.querySelector("#main-display");
 
 
-
+//TODO -add MOMENT.JS in order to add date to main display
 //* send weather results to the main display (the user's search result)
 function renderWeather(weather) {
+  console.log(weather);
   let results = document.querySelector("#main-display");
   //* show CITY NAME, DATE, WEATHER ICON, TEMP, WIND, HUMIDITY, and UV INDEX with COLOR CODED reference
   
   let city = document.createElement("h2");
-  city.textContent = weather.name + moment().format();
+  city.textContent = weather.name;
   results.append(city);
 
   let temp = document.createElement("p");
   temp.textContent = "Temp: " + weather.main.temp + " F";
   results.append(temp);
 
-  let
+  let wind = document.createElement("p");
+  wind.textContent = "Wind Speed: " + weather.wind.speed + " mph";
+  results.append(wind);
+
+  let humidity = document.createElement("p");
+  humidity.textContent = "Humidity: " + weather.main.humidity + "%";
+  results.append(humidity);
+
+  let uvIndex = document.createElement("p");
+  uvIndex.textContent = "UV Index: " + weather.main.uvindex
   
-}
+};
 
 //* BELOW - a function to fetch weather for a particular city
 function fetchWeather(query) {
@@ -28,9 +38,9 @@ function fetchWeather(query) {
 
   fetch(url)
   .then((response) => response.json())
-  .then((data) => console.log(data));
+  .then((data) => renderWeather(data));
 }
-fetchWeather("Long Beach")
+fetchWeather("Los Angeles")
 
 
 // GIVEN a weather dashboard with form inputs
