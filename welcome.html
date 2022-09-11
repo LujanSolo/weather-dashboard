@@ -39,49 +39,34 @@
 -->
           <div class="row">        
             <div class="col-12">
-              <div class="input-field">
-                <input id="user-input" type="text" class="form-control-sm col-12 border-light" placeholder="Enter a city" />
+              <div class="input-group">
+                <input id="user-input" type="text" class="form-control-sm col-12 border-light" placeholder="e.g Chicago" />
                 <button id="search-btn" type="submit" class="btn btn-primary mt-2 text-center text-light col-12">Search</button>
               </div>
               <hr />
             </div>
           </div>
+<!-- 
+  --THE history will be populated from Local Storage and pushed into these ul
+-->
           <div class="row">
             <div class="col-12">
-              <ul id="search-hist" class="list-group text-center">
-                <li class="list-group-item bg-secondary bg-opacity-50 p-1 m-1">HERE FOR STYLING</li>
-                <li class="list-group-item bg-secondary bg-opacity-50 p-1 m-1">HERE FOR STYLING</li>
-                <li class="list-group-item bg-secondary bg-opacity-50 p-1 m-1">HERE FOR STYLING</li>
-                <li class="list-group-item bg-secondary bg-opacity-50 p-1 m-1">HERE FOR STYLING</li>
-                <li class="list-group-item bg-secondary bg-opacity-50 p-1 m-1">HERE FOR STYLING</li>
-              </ul>
+              <ul id="search-hist" class="list-group text-center"></ul>
             </div>
           </div>
         </div>
-      </div>
 <!-- 
   NEXT, a 9-column section for the MAIN DISPLAY (e.g. user's selected city) and the 5-DAY forecast. div class col-9 is still within the main container on line 20
- -->
-        <div class="col-9">
-
-
+-->
+      <div id="results-section" class="col-9">
+        <div class="row">
+          <div id="main-display" class="col-12">PLACEHOLDER TEXT</div>
         </div>
-
-    </div>
-      
-<!-- 
-  -- BELOW, THE MAIN DISPLAY FOR THE "SEARCHED FOR" CITY with
-  1. CITY NAME
-  2. THE DATE
-  3. ICON REPRESENTING WEATHER CONDITIONS
-  4. THE TEMPERATURE
-  5. HUMIDITY
-  6. WIND SPEED
-  7. UV INDEX (with color coding indicating FAVORABLE, MODERATE, or SEVERE)
- -->
-      
-
-
+        <div class="row">
+          <div class="col-12">
+            <h4>Five-Day Forecast</h4>
+          </div>
+        </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
   </body>
