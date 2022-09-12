@@ -2,6 +2,39 @@ let userInput = document.querySelector("#user-input");
 let searchBtn = document.querySelector("#search-btn");
 let apiKey = "32f1cece631ee89046fe3328471647a0";
 
+// //* get coordinates from api weather data for function
+
+function fetchCoords(city) {
+  let userQueryUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&units=imperial&appid=" + apiKey;
+  console.log("fetchCoords city = ", city);
+
+  fetch(userQueryUrl)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    let lat = city.lat;
+    let lon = city.lon;
+    console.log(data);
+  })
+
+  
+};
+fetchCoords("Chicago")
+
+function fetchWeather(lonLat) {
+  // console.log(data);
+
+  
+  let url = "https://pro.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey;
+
+  fetch(url)
+  .then((response) => response.json())
+  .then((data) => renderWeather(data));
+};
+// fetchWeather("Long Beach")
+
+
 
 
 function renderWeather(weather) {
@@ -55,25 +88,6 @@ function renderWeather(weather) {
   // 
   // uvIndex.textContent = "UV Index: " + weather.main.uvindex
   
-// //* get coordinates from api weather data for function
-function fetchCoords(city) {
-  let userQueryUrl = "https://pro.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + apiKey;
-  console.log("fetchCoords city = ", city);
-
-  fetch(userQueryUrl)
-  .then((response) => response.json())
-  .then((data) => console.log(data));
-};
-fetchCoords("Long Beach")
-
-// function fetchWeather(city) {
-//   let url = 
-
-//   fetch(url)
-//   .then((response) => response.json())
-//   .then((data) => renderWeather(data));
-// };
-// fetchWeather("Long Beach")
 
 
 
