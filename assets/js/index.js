@@ -1,29 +1,45 @@
 let userInput = document.querySelector("#user-input");
 let searchBtn = document.querySelector("#search-btn");
 let apiKey = "32f1cece631ee89046fe3328471647a0";
-// let forecast = document.querySelector("#main-display");
 
 
-//TODO -add MOMENT.JS in order to add date to main display
+
+// WHEN I view current weather conditions for that city
+// THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
+//*So, pull NAME, 
+    //* DATE, 
+    //* WEATHER CONDITION ICONS, 
+    //* TEMPERATURE, 
+    //* HUMIDITY, 
+    //* WIND SPEED, 
+    //* UV INDEX 
 
 //* send weather results to the main display (the user's search result)
 function renderWeather(weather) {
   console.log(weather);
   
-  //*to easily access the array of description data 
-  let weatherDetails = weather.weather[0]; 
+//*Build a UNIX timestamp converter
   let unixTimestamp = weather.dt*1000;
+  let day = (new Date(unixTimestamp).toDateString()); //TODO try to convert to mockup format
   
-  //*Build a UNIX timestamp converter
-  let day = (new Date(unixTimestamp).toDateString());
-
 
 //* show CITY NAME, DATE, WEATHER ICON, TEMP, WIND, HUMIDITY, and UV INDEX with COLOR CODED reference
+  
   let results = document.querySelector("#main-display");
+
+  //*an easier way to access the weather[array] to get description and icons
+  let weatherDetails = weather.weather[0];
+
+  
+  
   
   let city = document.createElement("h2");
-  city.textContent = weather.name + ', ' + day; //*add date and weather icon
+  city.innerHTML = weather.name + ', ' + day; //*add date and weather icon
   results.append(city);
+  let weatherImg = document.createElement("img");
+  weatherImg.setAttribute("src", ("http://openweathermap.org/img/wn/" + weatherDetails.icon + ".png"));
+  city.appendChild(weatherImg);
+ 
 
   let temp = document.createElement("p");
   temp.textContent = "Temp: " + weather.main.temp + " F°";
@@ -36,6 +52,9 @@ function renderWeather(weather) {
   let humidity = document.createElement("p");
   humidity.textContent = "Humidity: " + weather.main.humidity + "%";
   results.append(humidity);
+
+  
+  
 };
 
   // let uvIndex = document.createElement("p");
@@ -68,15 +87,7 @@ fetchWeather("Long Beach")
 //*LOCAL STORAGE
 
 
-// WHEN I view current weather conditions for that city
-// THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-//*So, pull NAME, 
-    //* DATE, 
-    //* WEATHER CONDITION ICONS, 
-    //* TEMPERATURE, 
-    //* HUMIDITY, 
-    //* WIND SPEED, 
-    //* UV INDEX 
+
 
 
 // WHEN I view the UV index
