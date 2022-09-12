@@ -6,7 +6,7 @@ let apiKey = "32f1cece631ee89046fe3328471647a0";
 
 function fetchCoords(query) {
   let userQueryUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + query + "&units=imperial&appid=" + apiKey;
-  console.log("fetchCoords city = ", query);
+  console.log("Your fetchCoords city = ", query);
 
   fetch(userQueryUrl)
   .then(function (response) {
@@ -15,25 +15,26 @@ function fetchCoords(query) {
   .then(function (coords) {
     let lat = coords[0].lat;
     let lon = coords[0].lon;
-    fetchWeather(lon, lat);
+    fetchWeather(lat, lon);
   })
 };
-fetchCoords("Chicago")
+fetchCoords("Las Cruces")
 
-function fetchWeather(lon,lat) {
-  console.log(lon, lat);
-  let url = "https://pro.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&appid=" + apiKey;
+function fetchWeather(lat, lon) {
+  
+  console.log("The coordinates are latitude:", lat, " and longitude:", lon);
+
+  let url = "https://pro.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&exclude=minutely,hourly&appid=" + apiKey;
 
   fetch(url)
   .then((response) => response.json())
   .then((data) => renderWeather(data));
 };
-// fetchWeather("Long Beach")
 
 function renderWeather(weather) {
   console.log(weather);
   
-  let unixTimestamp = weather.dt*1000;
+  let unixTimestamp = weather.current.dt*1000;
   let day = (new Date(unixTimestamp).toDateString()); 
   let results = document.querySelector("#main-display");
   let weatherDetails = weather.current.weather[0];
