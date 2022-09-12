@@ -70,7 +70,7 @@ function fetchWeather(query) {
   .then((data) => renderWeather(data));
 };
 
-fetchWeather("Long Beach")
+fetchWeather("Harrisonburg")
 
 
 // GIVEN a weather dashboard with form inputs
