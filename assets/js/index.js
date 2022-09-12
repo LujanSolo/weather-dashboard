@@ -1,9 +1,9 @@
 let userInput = document.querySelector("#user-input");
 let searchBtn = document.querySelector("#search-btn");
 let apiKey = "32f1cece631ee89046fe3328471647a0";
+let results = document.querySelector("#main-display");
 
-// //* get userInput (city) coordinates from api weather data for function
-
+fetchCoords("Las Cruces")
 function fetchCoords(query) {
   let userQueryUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + query + "&units=imperial&appid=" + apiKey;
   console.log("Your fetchCoords city = ", query);
@@ -16,49 +16,47 @@ function fetchCoords(query) {
     let lat = coords[0].lat;
     let lon = coords[0].lon;
     fetchWeather(lat, lon);
-  })
-};
-fetchCoords("Las Cruces")
+  });
 
-function fetchWeather(lat, lon) {
+  function fetchWeather(lat, lon) {
+    
+    console.log("The coordinates are latitude:", lat, " and longitude:", lon);
   
-  console.log("The coordinates are latitude:", lat, " and longitude:", lon);
-
-  let url = "https://pro.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&exclude=minutely,hourly&appid=" + apiKey;
-
-  fetch(url)
-  .then((response) => response.json())
-  .then((data) => renderWeather(data));
-};
-
-function renderWeather(weather) {
-  console.log(weather);
+      let url = "https://pro.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&  units=imperial&exclude=minutely,hourly&appid=" + apiKey;
   
-  let unixTimestamp = weather.current.dt*1000;
-  let day = (new Date(unixTimestamp).toDateString()); 
-  let results = document.querySelector("#main-display");
-  let weatherDetails = weather.current.weather[0];
+    fetch(url)
+    .then((response) => response.json())
+    .then((data) => renderWeather(data));
+  };
   
-  let city = document.createElement("h2");
-  city.innerHTML = weather.name + ' ' + "(" + day +")";
-  results.append(city);
+  function renderWeather(weather) {
+    console.log(weather);
+    
+    let unixTimestamp = weather.current.dt*1000;
+    let day = (new Date(unixTimestamp).toDateString()); 
+    
+    let weatherDetails = weather.current.weather[0];
+    
+    let cityInput = document.createElement("h2");
+    cityInput.innerHTML =  query + ' ' + "(" + day +")";
+    results.append(cityInput);
+  
+    let weatherImg = document.createElement("img");
+    weatherImg.setAttribute("src", ("http://openweathermap.org/img/wn/" + weatherDetails.icon + ".png"));
+    cityInput.appendChild(weatherImg);
+  
+    let temp = document.createElement("p");
+    temp.textContent = "Temp: " + weather.current.temp + " °F";
+    results.append(temp);
+  
+    let wind = document.createElement("p");
+    wind.textContent = "Wind Speed: " + weather.current.wind_speed + " mph";
+    results.append(wind);
 
-  let weatherImg = document.createElement("img");
-  weatherImg.setAttribute("src", ("http://openweathermap.org/img/wn/" + weatherDetails.icon + ".png"));
-  city.appendChild(weatherImg);
-
-  let temp = document.createElement("p");
-  temp.textContent = "Temp: " + weather.current.temp + " °F";
-  results.append(temp);
-
-  let wind = document.createElement("p");
-  wind.textContent = "Wind Speed: " + weather.current.wind_speed + " mph";
-  results.append(wind);
-
-  let humidity = document.createElement("p");
-  humidity.textContent = "Humidity: " + weather.current.humidity + "%";
-  results.append(humidity);
-
+    let humidity = document.createElement("p");
+    humidity.textContent = "Humidity: " + weather.current.humidity + "%";
+    results.append(humidity);
+  
   // let uvIndex = document.createElement("p");
   // uvIndex.innerHTML = "UV Index: <span class=
 
@@ -76,6 +74,7 @@ function renderWeather(weather) {
 
 
   // }
+  }
 }
 
   // 
@@ -144,6 +143,7 @@ function renderWeather(weather) {
 
 // searchForm.addEventListener('submit', handleSearchSubmit);
 // history.addEventListener('click', handleSearchHistory);
+
 
 
 // *make fetch call from coords, add filters for specific details; api key fed into url search.
