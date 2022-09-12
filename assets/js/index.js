@@ -2,31 +2,27 @@ let userInput = document.querySelector("#user-input");
 let searchBtn = document.querySelector("#search-btn");
 let apiKey = "32f1cece631ee89046fe3328471647a0";
 
-// //* get coordinates from api weather data for function
+// //* get userInput (city) coordinates from api weather data for function
 
-function fetchCoords(city) {
-  let userQueryUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&units=imperial&appid=" + apiKey;
-  console.log("fetchCoords city = ", city);
+function fetchCoords(query) {
+  let userQueryUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + query + "&units=imperial&appid=" + apiKey;
+  console.log("fetchCoords city = ", query);
 
   fetch(userQueryUrl)
   .then(function (response) {
     return response.json();
   })
-  .then(function (data) {
-    let lat = city.lat;
-    let lon = city.lon;
-    console.log(data);
+  .then(function (coords) {
+    let lat = coords[0].lat;
+    let lon = coords[0].lon;
+    fetchWeather(lon, lat);
   })
-
-  
 };
 fetchCoords("Chicago")
 
-function fetchWeather(lonLat) {
-  // console.log(data);
-
-  
-  let url = "https://pro.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey;
+function fetchWeather(lon,lat) {
+  console.log(lon, lat);
+  let url = "https://pro.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&appid=" + apiKey;
 
   fetch(url)
   .then((response) => response.json())
@@ -34,36 +30,32 @@ function fetchWeather(lonLat) {
 };
 // fetchWeather("Long Beach")
 
-
-
-
 function renderWeather(weather) {
-  console.log(weather);//!remove before final push
+  console.log(weather);
   
   let unixTimestamp = weather.dt*1000;
   let day = (new Date(unixTimestamp).toDateString()); 
   let results = document.querySelector("#main-display");
-  let weatherDetails = weather.weather[0];
-
-
+  let weatherDetails = weather.current.weather[0];
+  
   let city = document.createElement("h2");
   city.innerHTML = weather.name + ' ' + "(" + day +")";
   results.append(city);
-  
+
   let weatherImg = document.createElement("img");
   weatherImg.setAttribute("src", ("http://openweathermap.org/img/wn/" + weatherDetails.icon + ".png"));
   city.appendChild(weatherImg);
 
   let temp = document.createElement("p");
-  temp.textContent = "Temp: " + weather.main.temp + " °F";
+  temp.textContent = "Temp: " + weather.current.temp + " °F";
   results.append(temp);
 
   let wind = document.createElement("p");
-  wind.textContent = "Wind Speed: " + weather.wind.speed + " mph";
+  wind.textContent = "Wind Speed: " + weather.current.wind_speed + " mph";
   results.append(wind);
 
   let humidity = document.createElement("p");
-  humidity.textContent = "Humidity: " + weather.main.humidity + "%";
+  humidity.textContent = "Humidity: " + weather.current.humidity + "%";
   results.append(humidity);
 
   // let uvIndex = document.createElement("p");
