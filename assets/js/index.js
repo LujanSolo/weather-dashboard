@@ -2,25 +2,18 @@ let userInput = document.querySelector("#user-input");
 let searchBtn = document.querySelector("#search-btn");
 let apiKey = "32f1cece631ee89046fe3328471647a0";
 
-let results = document.querySelector("#main-display");
+let searchHistEl = document.querySelector("#search-history");
 let fiveDay = document.querySelector("#five-day");
 
-let searchHistEl = document.querySelector("#search-history");
-// let citySearch; //*do i need this to be global?
-
-searchBtn.onclick = function(event){
-  event.preventDefault();
+searchBtn.onclick = function(){
   let userCity = userInput.value;
   fetchCoords(userCity);
   console.log(userCity);
-}
+};
 
 
-// fetchCoords("Long Beach")
 function fetchCoords(city) {
-  // citySearch = city;
   let userQueryUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&appid=" + apiKey;
-  console.log("Your fetchCoords city = ", city);
 
   fetch(userQueryUrl)
   .then(function (response) {
@@ -44,9 +37,11 @@ function fetchCoords(city) {
   
   function renderWeather(weather) {
     console.log(weather);
-    
+    let results = document.querySelector("#main-display");
+    let fiveDay = document.querySelector("#five-day");
     let unixTimestamp = weather.current.dt*1000;
     let day = (new Date(unixTimestamp).toDateString()); 
+    
     
     let weatherDetails = weather.current.weather[0];
     
@@ -70,11 +65,9 @@ function fetchCoords(city) {
     humidity.textContent = "Humidity: " + weather.current.humidity + "%";
     results.append(humidity);
   
-    // let uvIndex = document.createElement("p");
-    // uvIndex.innerHTML = "UV Index: <span class='uv-index text-white px-2 rounded'>" + weather.current.weather.icon + "<span>";
-    // let spanEl = document.querySelector(".uv-index");
-    // spanEl.setAttribute("style", "background-color: " + getUVColor(weather.current.weather.icon));
-    // results.append(uvIndex);
+    let uvIndex = document.createElement("p");
+    uvIndex.innerHTML = "UV Index: " + weather.current.uvi;
+    results.append(uvIndex);
 
     }
 }
