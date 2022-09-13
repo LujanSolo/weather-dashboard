@@ -6,18 +6,19 @@ let results = document.querySelector("#main-display");
 let fiveDay = document.querySelector("#five-day");
 
 let searchHistEl = document.querySelector("#search-history");
-let citySearch; //*do i need this to be global?
+// let citySearch; //*do i need this to be global?
 
-searchBtn.onclick = function(){
+searchBtn.onclick = function(event){
+  event.preventDefault();
   let userCity = userInput.value;
-
+  fetchCoords(userCity);
   console.log(userCity);
 }
 
 
 // fetchCoords("Long Beach")
 function fetchCoords(city) {
-  citySearch = city;
+  // citySearch = city;
   let userQueryUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&appid=" + apiKey;
   console.log("Your fetchCoords city = ", city);
 
