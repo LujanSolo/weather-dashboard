@@ -1,11 +1,16 @@
 let userInput = document.querySelector("#user-input");
 let searchBtn = document.querySelector("#search-btn");
 let apiKey = "32f1cece631ee89046fe3328471647a0";
-let results = document.querySelector("#main-display");
 
-fetchCoords("Las Cruces")
+let results = document.querySelector("#main-display");
+let fiveDay = document.querySelector("#five-day");
+
+let searchHistEl = document.querySelector("#search-history");
+
+
+fetchCoords("Long Beach")
 function fetchCoords(query) {
-  let userQueryUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + query + "&units=imperial&appid=" + apiKey;
+  let userQueryUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + query + "&appid=" + apiKey;
   console.log("Your fetchCoords city = ", query);
 
   fetch(userQueryUrl)
@@ -19,10 +24,9 @@ function fetchCoords(query) {
   });
 
   function fetchWeather(lat, lon) {
-    
     console.log("The coordinates are latitude:", lat, " and longitude:", lon);
   
-      let url = "https://pro.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&  units=imperial&exclude=minutely,hourly&appid=" + apiKey;
+    let url = "https://pro.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&exclude=minutely,hourly&appid=" + apiKey;
   
     fetch(url)
     .then((response) => response.json())
@@ -57,29 +61,15 @@ function fetchCoords(query) {
     humidity.textContent = "Humidity: " + weather.current.humidity + "%";
     results.append(humidity);
   
-  // let uvIndex = document.createElement("p");
-  // uvIndex.innerHTML = "UV Index: <span class=
+    let uvIndex = document.createElement("p");
+    uvIndex.innerHTML = "UV Index: <span class='uv-index text-white px-2 rounded'>" + weather.current.weather.icon + "<span>";
+    let spanEl = document.querySelector(".uv-index");
+    spanEl.setAttribute("style", "background-color: " + getUVColor(weather.current.weather.icon));
+    results.append(uvIndex);
 
-//* UV INDEX method to add to the main-display. color coding sourced from https://www.epa.gov/sunsafety/uv-index-scale-0
-  // function getUVIndex(data) {
-  //   console.log(data);
-  //   // let latitude = weather.coord.lat;
-  //   // let longitude = weather.coord.lon;
-  //   // let uvIndexUrl = "https://api.openweathermap.org/data/2.5/uvi?lat=" + latitude + "&lon=" + longitude + "&appid=32f1cece631ee89046fe3328471647a0";
-  //   let uvIndexUrl = "https://pro.openweathermap.org/data/2.5/uvi?lat=38.4496&lon=-78.8689&appid=32f1cece631ee89046fe3328471647a0";
-
-  //   fetch(data)
-  //   .then((response) => response.json())
-  //   .then((data) => console.log(data));
-
-
-  // }
-  }
+    }
 }
-
-  // 
-  // uvIndex.textContent = "UV Index: " + weather.main.uvindex
-  
+// searchBtn.addEventListener('submit', fetchCoords);
 
 
 
