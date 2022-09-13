@@ -6,12 +6,20 @@ let results = document.querySelector("#main-display");
 let fiveDay = document.querySelector("#five-day");
 
 let searchHistEl = document.querySelector("#search-history");
+let citySearch; //*do i need this to be global?
+
+searchBtn.onclick = function(){
+  let userCity = userInput.value;
+
+  console.log(userCity);
+}
 
 
-fetchCoords("Long Beach")
-function fetchCoords(query) {
-  let userQueryUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + query + "&appid=" + apiKey;
-  console.log("Your fetchCoords city = ", query);
+// fetchCoords("Long Beach")
+function fetchCoords(city) {
+  citySearch = city;
+  let userQueryUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&appid=" + apiKey;
+  console.log("Your fetchCoords city = ", city);
 
   fetch(userQueryUrl)
   .then(function (response) {
@@ -42,7 +50,7 @@ function fetchCoords(query) {
     let weatherDetails = weather.current.weather[0];
     
     let cityInput = document.createElement("h2");
-    cityInput.innerHTML =  query + ' ' + "(" + day +")";
+    cityInput.innerHTML =  city + ' ' + "(" + day +")";
     results.append(cityInput);
   
     let weatherImg = document.createElement("img");
@@ -61,21 +69,18 @@ function fetchCoords(query) {
     humidity.textContent = "Humidity: " + weather.current.humidity + "%";
     results.append(humidity);
   
-    let uvIndex = document.createElement("p");
-    uvIndex.innerHTML = "UV Index: <span class='uv-index text-white px-2 rounded'>" + weather.current.weather.icon + "<span>";
-    let spanEl = document.querySelector(".uv-index");
-    spanEl.setAttribute("style", "background-color: " + getUVColor(weather.current.weather.icon));
-    results.append(uvIndex);
+    // let uvIndex = document.createElement("p");
+    // uvIndex.innerHTML = "UV Index: <span class='uv-index text-white px-2 rounded'>" + weather.current.weather.icon + "<span>";
+    // let spanEl = document.querySelector(".uv-index");
+    // spanEl.setAttribute("style", "background-color: " + getUVColor(weather.current.weather.icon));
+    // results.append(uvIndex);
 
     }
 }
-// searchBtn.addEventListener('submit', fetchCoords);
+
+//write getUVColor function
 
 
-
-// GIVEN a weather dashboard with form inputs
-// WHEN I search for a city
-//*city search. search BUTTON
 
 
 
