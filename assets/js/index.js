@@ -1,14 +1,35 @@
 let userInput = document.querySelector("#user-input");
 let searchBtn = document.querySelector("#search-btn");
+
 let apiKey = "32f1cece631ee89046fe3328471647a0";
 
 let searchHistEl = document.querySelector("#search-history");
-let fiveDay = document.querySelector("#five-day");
+// let fiveDay = document.querySelector("#five-day");
 
-searchBtn.onclick = function(){
-  let userCity = userInput.value;
+const searchHistoryBucket = [];
+
+function getUserCity(event) {
+  let userCity = event.currentTarget.previousElementSibling.value;
+  userInput.val("");
+  
+  if (!userInput.value) {
+    alert("Please enter a valid city/location");
+    return;
+  }
+
+  if (!localStorage.getItem("userCity")) {
+    localStorage.setItem("location", "[]");
+  } else {
+    searchHistoryBucket = JSON.parse(localStorage.getItem("userCity"));
+  }
+
+
+
+
+
   fetchCoords(userCity);
   console.log(userCity);
+  //todo : Most likely will have to set local storage here. setItem and CHECK to see if the entry is in the history list (if statement)
 };
 
 
@@ -37,6 +58,7 @@ function fetchCoords(city) {
   
   function renderWeather(weather) {
     console.log(weather);
+  
     let results = document.querySelector("#main-display");
     let fiveDay = document.querySelector("#five-day");
     let unixTimestamp = weather.current.dt*1000;
@@ -114,6 +136,15 @@ function fetchCoords(city) {
 // function handleSearchSubmit(event){
 //   event.preventDefault();
 //   console.log('submit=clicked');
+//todo : GET local storage and populate SEARCH HISTORY. Make history elements clickable to feed into fetchCoords
+// function getLocalStorage(){
+//   
+//   
+//   if (savedCities === !null) {
+//     historyArray(push(savedCities));
+//    //! RUN A FOR LOOP HERE TO ITERATE THROUGH LOCAL STORAGE AND POPULATE HISTORY BLOCK
+//   }
+
 
 //   if(!userInput.value){
 //     return;
