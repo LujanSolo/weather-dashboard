@@ -8,19 +8,24 @@ let searchHistEl = document.querySelector("#search-history");
 
 const searchHistoryBucket = [];
 
-function getUserCity(event) {
-  let userCity = event.currentTarget.previousElementSibling.value;
-  userInput.val("");
+
+function getCity(){
+  let userCity = userInput.value;
   
+
   if (!userInput.value) {
     alert("Please enter a valid city/location");
     return;
   }
 
   if (!localStorage.getItem("userCity")) {
-    localStorage.setItem("location", "[]");
+    localStorage.setItem("Location", "[]");
   } else {
-    searchHistoryBucket = JSON.parse(localStorage.getItem("userCity"));
+    searchHistoryBucket = JSON.parse(localStorage.getItem("Location"));
+  }
+
+  if (searchHistoryBucket.length >=6) {
+    searchHistoryBucket.pop();
   }
 
 
