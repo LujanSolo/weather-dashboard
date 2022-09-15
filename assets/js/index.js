@@ -1,41 +1,56 @@
-let userInput = document.querySelector("#user-input");
-let searchBtn = document.querySelector("#search-btn");
-
+// global variables
+let userInput = document.getElementById("user-input");
+let searchBtn = document.getElementById("search-btn");
 let apiKey = "32f1cece631ee89046fe3328471647a0";
+let jumbotron = document.getElementById("results-section");
+// Search history variable
+let searchHistEl = document.getElementById("search-history");
 
-let searchHistEl = document.querySelector("#search-history");
-// let fiveDay = document.querySelector("#five-day");
+let fiveDay = document.getElementById("five-day");
 
-const searchHistoryBucket = [];
+const searchHistoryBucket = []
 
+// function to run at PAGELOAD, call at end of index.js
+function init() {
+  let storedCities = JSON.parse(localStorage.getItem("cities"));
 
-function getCity(){
-  let userCity = userInput.value;
+  // if local storage isn't empty, update bucket with stored entries
+  if (storedCities !== null) {
+    searchHistoryBucket = storedCities;
+  }
   
+  //! fill search history goes here?
+  // let temp = document.createElement("p");
+  //   temp.textContent = "Temp: " + weather.current.temp + " °F";
+  //   results.append(temp);
+}
+
+// store User Entries in local storage
+function storeCities() {
+  localStorage.setItem("Loc.", JSON.stringify(searchHistoryBucket))
+}
+
+// the one button to rule them all
+searchBtn.addEventListener("click", function(event) {
+  // jumbotron.empty();//todo = empty results-section
+  
+  // event.preventDefault();
+  let userCity = userInput.value.trim();
 
   if (!userInput.value) {
     alert("Please enter a valid city/location");
     return;
-  }
+  };
 
-  if (!localStorage.getItem("userCity")) {
-    localStorage.setItem("Location", "[]");
-  } else {
-    searchHistoryBucket = JSON.parse(localStorage.getItem("Location"));
-  }
-
-  if (searchHistoryBucket.length >=6) {
-    searchHistoryBucket.pop();
-  }
-
-
-
-
+  
+  // push user's entry into global bucket (array)
+  searchHistoryBucket.push(userCity);
+  userInput.value = "";
 
   fetchCoords(userCity);
   console.log(userCity);
-  //todo : Most likely will have to set local storage here. setItem and CHECK to see if the entry is in the history list (if statement)
-};
+  storeCities();
+});
 
 
 function fetchCoords(city) {
@@ -62,16 +77,21 @@ function fetchCoords(city) {
   };
   
   function renderWeather(weather) {
+   
     console.log(weather);
   
-    let results = document.querySelector("#main-display");
-    let fiveDay = document.querySelector("#five-day");
+    let results = document.getElementById("main-display");
+    let fiveDay = document.getElementById("five-day");
     let unixTimestamp = weather.current.dt*1000;
     let day = (new Date(unixTimestamp).toDateString()); 
     
-    
     let weatherDetails = weather.current.weather[0];
-    
+
+    if (results !== null) {
+      results.innerHTML = "";
+    }
+
+    //*items below to populate current weather in "results" div 
     let cityInput = document.createElement("h2");
     cityInput.innerHTML =  city + ' ' + "(" + day +")";
     results.append(cityInput);
@@ -81,24 +101,28 @@ function fetchCoords(city) {
     cityInput.appendChild(weatherImg);
   
     let temp = document.createElement("p");
-    temp.textContent = "Temp: " + weather.current.temp + " °F";
+    temp.innerHTML = "Temp: " + weather.current.temp + " °F";
     results.append(temp);
   
     let wind = document.createElement("p");
-    wind.textContent = "Wind Speed: " + weather.current.wind_speed + " mph";
+    wind.innerHTML = "Wind Speed: " + weather.current.wind_speed + " mph";
     results.append(wind);
 
     let humidity = document.createElement("p");
-    humidity.textContent = "Humidity: " + weather.current.humidity + "%";
+    humidity.innerHTML = "Humidity: " + weather.current.humidity + "%";
     results.append(humidity);
   
     let uvIndex = document.createElement("p");
     uvIndex.innerHTML = "UV Index: " + weather.current.uvi;
-    results.append(uvIndex);
+    results.append(uvIndex); //todo: Add color coded <SPAN> over uvIndex
+
+    //todo: Render 5 day forecast with CARDS from bootstrap
+
 
     }
 }
 
+init();
 //write getUVColor function
 
 
@@ -136,38 +160,7 @@ function fetchCoords(city) {
     //* ALL REPEATS FROM BEFORE EXCEPT UV INDEX
 
 
-// WHEN I click on a city in the search history
-// THEN I am again presented with current and future conditions for that city
-// function handleSearchSubmit(event){
-//   event.preventDefault();
-//   console.log('submit=clicked');
-//todo : GET local storage and populate SEARCH HISTORY. Make history elements clickable to feed into fetchCoords
-// function getLocalStorage(){
-//   
-//   
-//   if (savedCities === !null) {
-//     historyArray(push(savedCities));
-//    //! RUN A FOR LOOP HERE TO ITERATE THROUGH LOCAL STORAGE AND POPULATE HISTORY BLOCK
-//   }
 
-
-//   if(!userInput.value){
-//     return;
-//   }
-//   let city = userInput.value.trim();
-//   console.log(city);
-//   fetchCoords(city);
-//   // to be done later
-// };
-
-
-// function handleSearchHistory(event){
-//   event.preventDefault();
-//   console.log('history=clicked')
-// };
-
-// searchForm.addEventListener('submit', handleSearchSubmit);
-// history.addEventListener('click', handleSearchHistory);
 
 
 
