@@ -27,7 +27,7 @@ function showHistory() {
   searchHistEl.innerHTML = "";
   for (var i=0; i < searchHistoryBucket.length; i++) {
   let historyBtn = document.createElement("button");
-  historyBtn.setAttribute("class", "btn btn-info m-1")
+  historyBtn.setAttribute("class", "btn btn-secondary m-1 text-center text-light border rounded")
   historyBtn.innerHTML = searchHistoryBucket [i];
   searchHistEl.appendChild(historyBtn);
   }
@@ -117,15 +117,15 @@ function fetchCoords(city) {
 
 // //! FUNCTION to create FIVE DAY forecast cards. Attribute details pulled directly from bootstrap cards. 
 function makeFiveDay(day) {
-  
+  console.log(day);
 
   let date = (new Date(day.dt*1000).toDateString()); 
   console.log(date);
 
 
   let cardContainer = document.createElement("div");
-  cardContainer.setAttribute('class', "card");
-  cardContainer.style.width = '18rem';
+  cardContainer.setAttribute('class', "card bg-primary m-2");
+  cardContainer.style.width = '15rem';
   fiveDayEl.append(cardContainer);
 
 
@@ -135,33 +135,34 @@ function makeFiveDay(day) {
 
 
   //! Card Title (our future day DATE)
-  let cardTitle = document.createElement("h5");
-  cardTitle.setAttribute('class', "card-title");
+  let cardTitle = document.createElement("h6");
+  cardTitle.setAttribute('class', "card-title text-left");
   cardTitle.textContent = date;
   cardBody.append(cardTitle);
   
   //! Descriptive weather Icon
   let cardIcon = document.createElement("img");
   cardIcon.setAttribute("src", ("http://openweathermap.org/img/wn/" + day.weather[0].icon + ".png"));
-  cardTitle.append(cardIcon);
+  cardBody.append(cardIcon);
 
   //! Temperature readout:
   let cardTemp = document.createElement("p");
   cardTemp.setAttribute('class', "card-text");
-  cardTemp.textContent = date;
-  cardIcon.append(cardTemp);
+  cardTemp.textContent = "High temp.: " + day.temp.max;
+  console.log(day.temp.max);
+  cardBody.append(cardTemp);
 
-  //! Wind readout:
+  // //! Wind readout:
   let cardWind = document.createElement("p");
   cardWind.setAttribute('class', "card-text");
-  cardWind.textContent = date;
+  cardWind.textContent = "Wind speed: " + day.wind_speed + "mph";
   cardTemp.append(cardWind);
 
   //! Humidity Readout
 
   let cardHumidity = document.createElement("p");
   cardHumidity.setAttribute('class', "card-text");
-  cardHumidity.textContent = date;
+  cardHumidity.textContent = "Humidity: " + day.humidity + "%";
   cardWind.append(cardHumidity);
 
   return cardContainer;
