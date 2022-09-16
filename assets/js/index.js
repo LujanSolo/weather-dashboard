@@ -69,7 +69,7 @@ function fetchCoords(city) {
     console.log(weather);
   
     let results = document.getElementById("main-display");
-    results.setAttribute('class', "border border-2 border-dark");
+    results.setAttribute('class', "border border-2 border-dark bg-primary text-light");
     
 
     //*  a UNIX TIMESTAMP CONVERTER to take unix value from API and convert it to a readable format
