@@ -2,8 +2,11 @@
 let userInput = document.getElementById("user-input");
 let searchBtn = document.getElementById("search-btn");
 let apiKey = "32f1cece631ee89046fe3328471647a0";
+let fiveDayEl = document.getElementById("five-day");
+
 //! 5day forecast div variable
 let fiveDay = document.getElementById("five-day");
+
 //! Search history  div variable and bucket array to hold user's past input
 let searchHistEl = document.getElementById("search-hist");
 let searchHistoryBucket = [] //! had set it to a const, rather than a changeable variable. see ln 24
@@ -35,25 +38,6 @@ function storeCities() {
   localStorage.setItem("Loc.", JSON.stringify(searchHistoryBucket))
 }
 
-//! THE ONE BUTTON TO RULE THEM ALL
-searchBtn.addEventListener("click", function(event) {
-  let userCity = userInput.value.trim();
-  
-  if (!userInput.value) {
-    alert("Please enter a valid city/location");
-    return;
-  };
-  //! push user's entry into global bucket (array)
-  searchHistoryBucket.push(userCity);
-  userInput.value = "";
-
-  fetchCoords(userCity);
-  console.log(userCity);
-  storeCities();
-  showHistory();
-  makeFiveDay();
-});
-
 //! FUNCTION to feed user's city into query and fetch geographic longitude and latitude.  Note: this API is convenient in that you can search by city name, but the response data is limited; hence the need for the fetchWeather METHOD (below)
 function fetchCoords(city) {
   let userQueryUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&appid=" + apiKey;
@@ -79,11 +63,12 @@ function fetchCoords(city) {
     .then((data) => renderWeather(data));
   };
   
+  
   function renderWeather(weather) {
     console.log(weather);
   
     let results = document.getElementById("main-display");
-    let fiveDayEl = document.getElementById("five-day");
+    
 
     //!  a UNIX TIMESTAMP CONVERTER to take unix value from API and convert it to a readable format
     let unixTimestamp = weather.current.dt*1000;
@@ -123,46 +108,86 @@ function fetchCoords(city) {
 
     //! FOR LOOP set to i=1, as we are looking for the next 5 days of weather for our cards.
     for (let i = 1; i < 6; i++) {
-      const currentDay = weather.daily[i];
+      let currentDay = weather.daily[i];
       makeFiveDay(currentDay);
       }
-  }
-console.log(makeFiveDay());
+  };
+};
+// console.log(makeFiveDay());
 
-//! don't forget to append the entire 5day to the container
-//todo date, icon, temp, wind, humidity
-
-//! FUNCTION to create FIVE DAY forecast cards. Attribute details pulled directly from bootstrap cards. 
+// //! FUNCTION to create FIVE DAY forecast cards. Attribute details pulled directly from bootstrap cards. 
 function makeFiveDay(day) {
+  
 
   let date = (new Date(day.dt*1000).toDateString()); 
   console.log(date);
 
+
   let cardContainer = document.createElement("div");
   cardContainer.setAttribute('class', "card");
   cardContainer.style.width = '18rem';
-  //append card body to container, title to body, etc etc
-  //card body:
+  fiveDayEl.append(cardContainer);
+
+
   let cardBody = document.createElement("div");
   cardBody.setAttribute('class', "card-body");
+  cardContainer.append(cardBody);
 
 
-  //card title
+  //! Card Title (our future day DATE)
   let cardTitle = document.createElement("h5");
   cardTitle.setAttribute('class', "card-title");
   cardTitle.textContent = date;
+  cardBody.append(cardTitle);
   
-
+  //! Descriptive weather Icon
   let cardIcon = document.createElement("img");
   cardIcon.setAttribute("src", ("http://openweathermap.org/img/wn/" + day.weather[0].icon + ".png"));
+  cardTitle.append(cardIcon);
 
+  //! Temperature readout:
+  let cardTemp = document.createElement("p");
+  cardTemp.setAttribute('class', "card-text");
+  cardTemp.textContent = date;
+  cardIcon.append(cardTemp);
 
+  //! Wind readout:
+  let cardWind = document.createElement("p");
+  cardWind.setAttribute('class', "card-text");
+  cardWind.textContent = date;
+  cardTemp.append(cardWind);
 
+  //! Humidity Readout
+
+  let cardHumidity = document.createElement("p");
+  cardHumidity.setAttribute('class', "card-text");
+  cardHumidity.textContent = date;
+  cardWind.append(cardHumidity);
 
   return cardContainer;
+  cardContainer.append(fiveDayEl)
 };
 
 init();
+
+//! THE ONE BUTTON TO RULE THEM ALL
+searchBtn.addEventListener("click", function(event) {
+  let userCity = userInput.value.trim();
+  
+  if (!userInput.value) {
+    alert("Please enter a valid city/location"); //todo: change alert to MODAL? 
+    return;
+  };
+  //! push user's entry into global bucket (array)
+  //TODO - create an IF CLAUSE to check entry against Search History
+  searchHistoryBucket.push(userCity);
+  userInput.value = "";
+
+  fetchCoords(userCity);
+  console.log(userCity);
+  storeCities();
+  showHistory();
+});
 
 
 
@@ -178,53 +203,3 @@ init();
 //   if (//num is between whatever and etc) {return green;}
 //   //then call function in the weather render to span over the uv index)
 // }
-
-
-
-
-
-
-
-
-// THEN I am presented with current and future conditions for that city and that city is added to the search history
-//*LOCAL STORAGE
-
-
-
-
-
-// WHEN I view the UV index
-// THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-
-
-
-// WHEN I view future weather conditions for that city
-// THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
-//* five day forecast with
-  //* DATE
-  //*  //* DATE, 
-    //* WEATHER CONDITION ICONS, 
-    //* TEMPERATURE, 
-    //* HUMIDITY, 
-    //* WIND SPEED, 
-    //* ALL REPEATS FROM BEFORE EXCEPT UV INDEX
-
-
-
-
-
-
-// *make fetch call from coords, add filters for specific details; api key fed into url search.
-
-// * console.log(data)  - look for lat and long. store in variables and pass along as needed
-
-// * call another api with all details (use proven version 2.5) for temp, 5 day, et al
-
-// *dynamically create elements in Search History (add text content of city name) and APPEND to search history
-
-// * store city names in Local Storage
-
-//! FIRST FUNCTION to DISPLAY weather results to the upper right grid (the user's search result)
-
-
-
