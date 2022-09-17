@@ -22,54 +22,37 @@
 <!--Container/row/column grid breakdown for bootstrap 5.2 with lg and small splits for the screen size/media query -->
   <main>
     <div class="container-fluid" style="max-width:1320px">
-      <div class="row p-4">    
-        <div id="search-block" class="col-sm-12 col-lg-3">
-          <div class="row">
-            <div class="col-12">
-              <h5>Search for a City:</h5>
-            </div>
-          </div> 
-<!-- 
-  -THEN we have the USER INPUT FIELD, SEARCH BUTTON, AND SEARCH HISTORY all wrapped in their own divs to constrain width and resizing.
--->
-          <div class="row">        
-            <div class="col-12">
-              <div class="input-group">
-                <input id="user-input" type="text" class="form-control-sm col-12 border-light rounded" placeholder="e.g. Seattle" />
-                <button id="search-btn" type="submit" class="btn btn-primary mt-2 text-center text-light border rounded col-12 ">Find Your Weather</button>
-                <p id="error-message" class="mt-1">
-              </div>
-              <hr />
-            </div>
+      <div class="row m-1 mt-3">    
+        <div class="col-sm-12 col-lg-3 p-2">
+          <div id="search-block">
+            <h5>Search for a City:</h5>
+            <input id="user-input" type="text" class="form-control-sm col-12 border-light rounded" placeholder="e.g. Seattle" />
+            <button id="search-btn" type="submit" class="btn btn-primary mt-2 text-center text-light border rounded col-12 ">Find Your Weather</button>
+            <p id="error-message" class="mt-1">
           </div>
-<!-- 
-  --THE history will be populated from Local Storage and pushed into these ul
--->
-          <div class="row">
-            <div class="col-12">
-              <div id="search-hist" class="list-group text-center"></div>
-            </div>
-          </div>
+          <hr />
+          <div id="search-hist" class="list-group text-center"></div>
         </div>
-<!-- 
+
+        <!-- 
   NEXT, a 9-column section for the MAIN DISPLAY (e.g. user's selected city) and the 5-DAY forecast. div class col-9 is still within the main container on line 20
 -->
-      <div id="results-section" class="col-9">
+      <div id="results-section" class="col-sm-12 col-lg-9 p-1">
         <div class="row">
           <div id="main-display" class="col-12">
-
+            <!-- current day weather details will populate here -->
           </div>
         </div>
         
-        <div class="row">
-          <div class="col-12 m-5">
-            <h4 id="fiveDayHeader" style="display: none">Five-Day Forecast</h4>
-            <div id="five-day" class="row text-left text-white">
+        <div class="mt-1 p-1">
+          <h4 id="fiveDayHeader" style="display: none">Five-Day Forecast</h4>
+          <div id="five-day" class="row">
               <!-- five day will populate here -->
-            </div>
           </div>
         </div>
-      
+      </div>
+      </div>
+    </div> 
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
   

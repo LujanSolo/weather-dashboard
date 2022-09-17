@@ -138,7 +138,7 @@ function makeFiveDay(day) {
 
   //* Card Title (our future day DATE)
   let cardTitle = document.createElement("h6");
-  cardTitle.setAttribute('class', "card-title");
+  cardTitle.setAttribute('class', "card-title ");
   cardTitle.textContent = date;
   cardBody.append(cardTitle);
   
