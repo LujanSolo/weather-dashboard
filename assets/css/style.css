@@ -2,34 +2,43 @@
   font-family: "Recursive", sans-serif;
 }
 
-h4 {
-  font-weight: 600;
-}
-
-#masthead {
-  background-image: linear-gradient(to left, rgb(123, 14, 169), rgb(12, 107, 239));
-}
-
-.green{
+/** green, yellow, and red coding for favorable, moderate, or severe conditions in uvIndex */
+.green {
   background-color: green;
   color: white;
 }
-
-.red{
+.red {
   background-color: red;
   color: white;
 }
-
-.yellow{
+.yellow {
   background-color: yellow;
   color: white;
 }
 
+/** modifications to the 5day cards*/
 .card-title {
   text-decoration: underline;
   font-size: 20px;
 }
-
 .card-text {
   font-size: 14px;
+}
+#color-code {
+  padding: 2px 10px;
+  color: black;
+}
+
+/** added gradient to masthead*/
+#masthead {
+  background-image: linear-gradient(
+    to left,
+    rgb(123, 14, 169),
+    rgb(12, 107, 239)
+  );
+}
+
+/** added darker bg color to current day weather display for easier reading of icons and uvIndex*/
+#main-display {
+  background-color: rgb(180, 206, 255);
 }

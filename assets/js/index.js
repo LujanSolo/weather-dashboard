@@ -21,7 +21,7 @@ function init() {
     searchHistoryBucket = storedCities;
   }
   showHistory();
-}
+};
 
 //* FUNCTION to get items from Search History Bucket (e.g. local storage) and populate searchHistEl's
 function showHistory() {
@@ -35,13 +35,12 @@ function showHistory() {
     historyBtn.innerHTML = searchHistoryBucket[i];
     searchHistEl.appendChild(historyBtn);
   }
-}
+};
 
 //* FUNCTION to store User Entries in local storage
 function storeCities() {
   localStorage.setItem("Loc.", JSON.stringify(searchHistoryBucket));
-}
-
+};
 
 //* FUNCTION to feed user's city into query and fetch geographic longitude and latitude.  Note: this API is convenient in that you can search by city name, but the response data is limited; hence the need for the fetchWeather METHOD (below)
 function fetchCoords(city) {
@@ -63,7 +62,6 @@ function fetchCoords(city) {
 
   //* METHOD to feed previous API's City coordinates into "data-rich" API. Note: this is a workaround for the "data-rich" API requiring long. and lat. coordinates to search for unique weather locations.
   function fetchWeather(lat, lon) {
-
     let url =
       "https://pro.openweathermap.org/data/2.5/onecall?lat=" +
       lat +
@@ -78,11 +76,10 @@ function fetchCoords(city) {
   }
   //* THE RENDER WEATHER function
   function renderWeather(weather) {
-
     let results = document.getElementById("main-display");
     results.setAttribute(
       "class",
-      "border border-2 border-dark bg-white px-3 text-dark"
+      "border border-2 border-dark px-3 text-dark",
     );
 
     //*  a UNIX TIMESTAMP CONVERTER to take unix value from API and convert it to a readable format
@@ -125,21 +122,25 @@ function fetchCoords(city) {
     results.append(humidity);
 
     let uvIndex = document.createElement("p");
-    uvIndex.innerHTML = "UV Index: <span class='colorCode'> " + weather.current.uvi + "</span>";
+    uvIndex.innerHTML =
+      "UV Index: <span id='color-code' class='colorCode' text-white px-2 rounded>" +
+      weather.current.uvi +
+      "</span>";
     results.append(uvIndex);
-    document.querySelector('.colorCode').classList.add(getUVColor(weather.current.uvi));
+    document
+      .querySelector(".colorCode")
+      .classList.add(getUVColor(weather.current.uvi));
 
     //* FOR LOOP set to i=1, as we are looking for the next 5 days of weather for our cards.
     for (let i = 1; i < 6; i++) {
       let currentDay = weather.daily[i];
       makeFiveDay(currentDay);
-    };
-  };
+    }
+  }
 };
 
 // //* FUNCTION to create FIVE DAY forecast cards. Attribute details pulled directly from bootstrap cards.
 function makeFiveDay(day) {
-
   //* sets the "Five Day Forecast" header to display upon five day rendering
   fiveDayHeader.style.display = "";
 
@@ -150,12 +151,10 @@ function makeFiveDay(day) {
 
   fiveDayEl.append(cardContainer);
 
-
   let cardBody = document.createElement("div");
   cardBody.setAttribute("class", "card-body");
-  cardContainer.style.backgroundColor = "midnightblue";
+  cardContainer.style.backgroundColor = "navy";
   cardContainer.appendChild(cardBody);
-
 
   //* Card Title (our future day DATE)
   let cardTitle = document.createElement("p");
@@ -194,21 +193,16 @@ function makeFiveDay(day) {
   cardContainer.append(fiveDayEl);
 };
 
-
 function getUVColor(uvIndex) {
-  console.log(uvIndex)
-  if (uvIndex >0 && uvIndex <3) {
+  console.log(uvIndex);
+  if (uvIndex > 0 && uvIndex < 3) {
     return "green";
-  } else if (uvIndex >=3 && uvIndex <=6) {
+  } else if (uvIndex >= 3 && uvIndex <= 6) {
     return "yellow";
-  } else if (uvIndex >6) {
+  } else if (uvIndex > 6) {
     return "red";
   }
-  //num is between whatever and etc) {return green;}
-  //then call function in the weather render to span over the uv index)
 };
-
-
 
 //* THE ONE BUTTON TO RULE THEM ALL
 searchBtn.addEventListener("click", function (event) {
@@ -219,11 +213,12 @@ searchBtn.addEventListener("click", function (event) {
     return;
   }
   //* push user's entry into global bucket (array)
-  //TODO - create an IF CLAUSE to check entry against Search History
-
-  //* INCLUDE is a search function (built in)
+  //* INCLUDES is a search built in function 
   if (searchHistoryBucket.includes(userCity) === false) {
     searchHistoryBucket.push(userCity);
+  }
+  if (searchHistoryBucket.length > 8) {
+    searchHistoryBucket.splice(0, 1);
   }
   userInput.value = "";
 
@@ -240,11 +235,3 @@ searchHistEl.addEventListener("click", function (event) {
 });
 
 init();
-
-
-
-
-//TODO: make text smaller for a better fit on the 5-day cards
-//TODO: limit search history results to 5 cities/locations
-
-//todo: darker background for 5-day
