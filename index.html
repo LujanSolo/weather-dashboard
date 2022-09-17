@@ -12,13 +12,11 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <title>Weather Dashboard</title>
   </head>
-
 <!-- HEADER WITH TITLE -->
   <body class="bg-secondary bg-opacity-10">
     <header>
       <h1 id="masthead" class="text-center text-white py-2">Weather Dashboard</h1>
     </header>
-
 <!--Container/row/column grid breakdown for bootstrap 5.2 with lg and small splits for the screen size/media query -->
   <main>
     <div class="container-fluid" style="max-width:1320px">
@@ -33,33 +31,26 @@
           <hr />
           <div id="search-hist" class="list-group text-center"></div>
         </div>
-
         <!-- 
   NEXT, a 9-column section for the MAIN DISPLAY (e.g. user's selected city) and the 5-DAY forecast. div class col-9 is still within the main container on line 20
 -->
-      <div id="results-section" class="col-sm-12 col-lg-9 p-1">
-        <div class="row">
-          <div id="main-display" class="col-12">
+        <div id="results-section" class="col-sm-12 col-lg-9 p-2">
+          <div id="main-display" class="mt-2 bg-white">
             <!-- current day weather details will populate here -->
           </div>
-        </div>
-        
+        <!-- next 5 day forecast -->
         <div class="mt-1 p-1">
           <h4 id="fiveDayHeader" style="display: none">Five-Day Forecast</h4>
-          <div id="five-day" class="row">
+            <div id="five-day" class="row">
               <!-- five day will populate here -->
+            </div>
           </div>
         </div>
-      </div>
-      </div>
-    </div> 
+      </div> 
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
-  
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-  
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
-
-  <script src="assets/js/index.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+      <script src="assets/js/index.js"></script>
   </body>
 </html>
