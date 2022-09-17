@@ -32,6 +32,8 @@ function showHistory() {
       "class",
       "history-btn border-0 rounded w-100 bg-secondary text-white p-1 m-1"
     );
+
+    
     historyBtn.innerHTML = searchHistoryBucket[i];
     searchHistEl.appendChild(historyBtn);
   }
@@ -235,3 +237,7 @@ searchHistEl.addEventListener("click", function (event) {
 });
 
 init();
+//* display most recently searched city (if any) by running fetchCoords through the history bucket at pageLoad
+if (searchHistoryBucket.length !== 0) {
+  fetchCoords(searchHistoryBucket[searchHistoryBucket.length - 1])
+}
