@@ -8,13 +8,9 @@ h4 {
 
 #masthead {
   background-image: linear-gradient(to left, rgb(123, 14, 169), rgb(12, 107, 239));
-};
-
-.card bg-info {
-  background-color: rgb(168, 130, 26);
 }
 
-.blue{
+.green{
   background-color: green;
   color: white;
 }

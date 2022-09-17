@@ -78,11 +78,11 @@ function fetchCoords(city) {
   }
   //* THE RENDER WEATHER function
   function renderWeather(weather) {
-    console.log(weather);
+
     let results = document.getElementById("main-display");
     results.setAttribute(
       "class",
-      "border border-2 border-dark bg-primary px-3 text-light"
+      "border border-2 border-dark bg-white px-3 text-dark"
     );
 
     //*  a UNIX TIMESTAMP CONVERTER to take unix value from API and convert it to a readable format
@@ -127,7 +127,7 @@ function fetchCoords(city) {
     let uvIndex = document.createElement("p");
     uvIndex.innerHTML = "UV Index: <span class='colorCode'> " + weather.current.uvi + "</span>";
     results.append(uvIndex);
-    document.querySelector('.colorCode').classList.add[getUVColor()];
+    document.querySelector('.colorCode').classList.add(getUVColor(weather.current.uvi));
 
     //* FOR LOOP set to i=1, as we are looking for the next 5 days of weather for our cards.
     for (let i = 1; i < 6; i++) {
@@ -146,19 +146,22 @@ function makeFiveDay(day) {
   let date = new Date(day.dt * 1000).toDateString();
 
   let cardContainer = document.createElement("div");
-  cardContainer.setAttribute("class", "card bg-info col m-1");
-  cardContainer.style.width = "15rem";
+  cardContainer.setAttribute("class", "card-container col m-1");
+
   fiveDayEl.append(cardContainer);
+
 
   let cardBody = document.createElement("div");
   cardBody.setAttribute("class", "card-body");
-  cardContainer.append(cardBody);
+  cardContainer.style.backgroundColor = "midnightblue";
+  cardContainer.appendChild(cardBody);
+
 
   //* Card Title (our future day DATE)
   let cardTitle = document.createElement("p");
-  cardTitle.setAttribute("class", "card-title");
+  cardTitle.setAttribute("class", "card-title text-white");
   cardTitle.textContent = date;
-  cardContainer.append(cardTitle);
+  cardContainer.appendChild(cardTitle);
 
   //* Descriptive weather Icon
   let cardIcon = document.createElement("img");
@@ -167,25 +170,25 @@ function makeFiveDay(day) {
     "http://openweathermap.org/img/wn/" + day.weather[0].icon + ".png"
   );
   cardIcon.classList.add("w-50");
-  cardContainer.append(cardIcon);
+  cardContainer.appendChild(cardIcon);
 
   //* Temperature readout:
   let cardTemp = document.createElement("p");
-  cardTemp.setAttribute("class", "card-text");
+  cardTemp.setAttribute("class", "card-text text-white");
   cardTemp.textContent = "Temp: " + day.temp.max;
-  cardContainer.append(cardTemp);
+  cardContainer.appendChild(cardTemp);
 
   //* Wind readout:
   let cardWind = document.createElement("p");
-  cardWind.setAttribute("class", "card-text");
+  cardWind.setAttribute("class", "card-text text-white");
   cardWind.textContent = "Wind: " + day.wind_speed + "mph";
-  cardContainer.append(cardWind);
+  cardContainer.appendChild(cardWind);
 
   //* Humidity Readout
   let cardHumidity = document.createElement("p");
-  cardHumidity.setAttribute("class", "card-text");
+  cardHumidity.setAttribute("class", "card-text text-white");
   cardHumidity.textContent = "Humidity: " + day.humidity + "%";
-  cardContainer.append(cardHumidity);
+  cardContainer.appendChild(cardHumidity);
 
   return cardContainer;
   cardContainer.append(fiveDayEl);
@@ -193,12 +196,13 @@ function makeFiveDay(day) {
 
 
 function getUVColor(uvIndex) {
-  if (uvIndex >= 0 && uvIndex <= 2) {
-    return ".green";
-  } else if (uvIndex >= 3 && uvIndex <= 5) {
-    return ".yellow";
-  } else if (uvIndex >= 6 && uvIndex <= 10) {
-    return ".red";
+  console.log(uvIndex)
+  if (uvIndex >0 && uvIndex <3) {
+    return "green";
+  } else if (uvIndex >=3 && uvIndex <=6) {
+    return "yellow";
+  } else if (uvIndex >6) {
+    return "red";
   }
   //num is between whatever and etc) {return green;}
   //then call function in the weather render to span over the uv index)
