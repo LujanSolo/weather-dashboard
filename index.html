@@ -26,21 +26,19 @@
             <h5>Search for a City:</h5>
             <input id="user-input" type="text" class="form-control-sm col-12 border-light rounded" placeholder="e.g. Seattle" />
             <button id="search-btn" type="submit" class="btn btn-primary mt-2 text-center text-light border rounded col-12 ">Find Your Weather</button>
-            <p id="error-message" class="mt-1">
+            <p id="error-message" class="mt-1"></p>
           </div>
           <hr />
           <div id="search-hist" class="list-group text-center"></div>
         </div>
-        <!-- 
-  NEXT, a 9-column section for the MAIN DISPLAY (e.g. user's selected city) and the 5-DAY forecast. div class col-9 is still within the main container on line 20
--->
-        <div id="results-section" class="col-sm-12 col-lg-9 p-2">
-          <div id="main-display" class="mt-2 bg-white">
+        <!--NEXT, a 9-column section for the MAIN DISPLAY (e.g. user's selected city) and the 5-DAY forecast. -->
+        <div id="results-section" class="col-sm-12 col-lg-9">
+          <div id="main-display" class="bg-white">
             <!-- current day weather details will populate here -->
           </div>
         <!-- next 5 day forecast -->
         <div class="mt-1 p-1">
-          <h4 id="fiveDayHeader" style="display: none">Five-Day Forecast</h4>
+          <h4 id="fiveDayHeader" style="display: none"><strong>Five-Day Forecast:</strong></h3>
             <div id="five-day" class="row">
               <!-- five day will populate here -->
             </div>
