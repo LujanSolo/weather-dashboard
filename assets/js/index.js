@@ -33,7 +33,7 @@ function showHistory() {
       "history-btn border-0 rounded w-100 bg-secondary text-white p-1 m-1"
     );
 
-    
+
     historyBtn.innerHTML = searchHistoryBucket[i];
     searchHistEl.appendChild(historyBtn);
   }
