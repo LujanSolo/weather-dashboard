@@ -10,15 +10,15 @@ let fiveDay = document.getElementById("five-day");
 
 //* Search history  div variable and bucket array to hold user's past input
 let searchHistEl = document.getElementById("search-hist");
-let searchHistoryBucket = [] //! had set it to a const, rather than a changeable variable. see ln 24
+let searchHistoryBucket = [] 
 
 //* FUNCTION to run at PAGELOAD, call at end of index.js
 function init() {
-  let storedCities = JSON.parse(localStorage.getItem("Loc."));//!was passing in incorrect key name
+  let storedCities = JSON.parse(localStorage.getItem("Loc."));
   console.log(storedCities)
   // if local storage isn't empty, update bucket with stored entries
   if (storedCities !== null) {
-    searchHistoryBucket = storedCities; //!this was getting overridden
+    searchHistoryBucket = storedCities; 
   };
   showHistory();
 };
@@ -28,7 +28,7 @@ function showHistory() {
   searchHistEl.innerHTML = "";
   for (var i=0; i < searchHistoryBucket.length; i++) {
   let historyBtn = document.createElement("button");
-  historyBtn.setAttribute("class", "btn btn-secondary m-1 text-center text-light border rounded")
+  historyBtn.setAttribute("class", "history-btn border-0 rounded w-100 bg-dark text-white p-1 m-1")
   historyBtn.innerHTML = searchHistoryBucket [i];
   searchHistEl.appendChild(historyBtn);
   }
@@ -50,7 +50,7 @@ function fetchCoords(city) {
   .then(function (coords) {
     let lat = coords[0].lat;
     let lon = coords[0].lon;
-    fetchWeather(lat, lon);
+    fetchWeather(lat, lon);  //! ADD A CONDITIONAL HERE TO DEAL WITH INVALID INPUT?
   });
 
   //* METHOD to feed previous API's City coordinates into "data-rich" API. Note: this is a workaround for the "data-rich" API requiring long. and lat. coordinates to search for unique weather locations.
@@ -126,7 +126,7 @@ function makeFiveDay(day) {
 
 
   let cardContainer = document.createElement("div");
-  cardContainer.setAttribute('class', "card bg-primary m-2");
+  cardContainer.setAttribute('class', "card bg-primary col m-1");
   cardContainer.style.width = '15rem';
   fiveDayEl.append(cardContainer);
 
@@ -193,16 +193,33 @@ searchBtn.addEventListener("click", function(event) {
   showHistory();
 });
 
+searchHistEl.addEventListener('click', function(event){
+  let element = event.target;
+  if (element.matches(".history-btn")){
+    fetchCoords(element.textContent);
+  }
+})
+
 
 //todo BUILD COLOR CODING FUNCTION
 // //write getUVColor function00
-// //*COLOR CODING FOR 
-//   //*  -favorable
-//   //*   -moderate
-//   //*    -severe
-//   //*then return whatever the classs
+// // //*COLOR CODING FOR 
+// //   //*  -favorable
+// //   //*   -moderate
+// //   //*    -severe
+// //   //*then return whatever the classs
 
 // function getUVColor () {
-//   if (//num is between whatever and etc) {return green;}
+//   if 
+  
+  
+//   //num is between whatever and etc) {return green;}
 //   //then call function in the weather render to span over the uv index)
 // }
+
+
+//todo variables all set?
+//todo selectors all set?
+
+//todo CHANGE ALERT MESSAGE TO TEXT CONTENT THAT WILL UPDATE UPON EMPTY SEARCH ENTRY AND INVALID LOCATION NAME (BONUS)
+//TODO 
