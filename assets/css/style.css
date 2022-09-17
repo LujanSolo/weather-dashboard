@@ -2,6 +2,13 @@
   font-family: "Recursive", sans-serif;
 }
 
+.footer {
+  text-align: end;
+  font-size: 10px;
+  font-weight: bolder;
+  padding-right: 30px;
+}
+
 /** green, yellow, and red coding for favorable, moderate, or severe conditions in uvIndex */
 .favorable {
   background-color: green;
