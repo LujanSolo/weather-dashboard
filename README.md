@@ -3,7 +3,7 @@
 </p>
 <br />
 
-<a href="#placholder">LujanSolo's Weather Dashboard Online Link</a><br />
+<a href="https://lujansolo.github.io/weather-dashboard/">LujanSolo's Weather Dashboard Online Link</a><br />
 
 <a href="https://github.com/LujanSolo/weather-dashboard">Github Repository for LujanSolo's Weather Dashboard</a><br />
 <br />
