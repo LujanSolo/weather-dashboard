@@ -30,7 +30,7 @@ function showHistory() {
     let historyBtn = document.createElement("button");
     historyBtn.setAttribute(
       "class",
-      "history-btn border-0 rounded w-100 bg-dark text-white p-1 m-1"
+      "history-btn border-0 rounded w-100 bg-secondary text-white p-1 m-1"
     );
     historyBtn.innerHTML = searchHistoryBucket[i];
     searchHistEl.appendChild(historyBtn);
@@ -38,10 +38,10 @@ function showHistory() {
 }
 
 //* FUNCTION to store User Entries in local storage
-
 function storeCities() {
   localStorage.setItem("Loc.", JSON.stringify(searchHistoryBucket));
 }
+
 
 //* FUNCTION to feed user's city into query and fetch geographic longitude and latitude.  Note: this API is convenient in that you can search by city name, but the response data is limited; hence the need for the fetchWeather METHOD (below)
 function fetchCoords(city) {
@@ -76,7 +76,7 @@ function fetchCoords(city) {
       .then((response) => response.json())
       .then((data) => renderWeather(data));
   }
-//* THE RENDER WEATHER function
+  //* THE RENDER WEATHER function
   function renderWeather(weather) {
     console.log(weather);
     let results = document.getElementById("main-display");
@@ -84,7 +84,6 @@ function fetchCoords(city) {
       "class",
       "border border-2 border-dark bg-primary px-3 text-light"
     );
-    //todo INDENT TEXT IN THE DIV TO SEPARATE FROM BORDER
 
     //*  a UNIX TIMESTAMP CONVERTER to take unix value from API and convert it to a readable format
     let unixTimestamp = weather.current.dt * 1000;
@@ -93,10 +92,10 @@ function fetchCoords(city) {
     //* shortcut to weather array details
     let weatherDetails = weather.current.weather[0];
 
+    //* Clear out the previous displays when rendering weather for a new city
     if (results !== null) {
       results.innerHTML = "";
     }
-
     if (fiveDayEl !== null) {
       fiveDayEl.innerHTML = "";
     }
@@ -126,19 +125,17 @@ function fetchCoords(city) {
     results.append(humidity);
 
     let uvIndex = document.createElement("p");
-    
     uvIndex.innerHTML = "UV Index: <span class='colorCode'> " + weather.current.uvi + "</span>";
     results.append(uvIndex);
-    document.querySelector('.colorCode').classList.add(getUVColor());
+    document.querySelector('.colorCode').classList.add[getUVColor()];
 
     //* FOR LOOP set to i=1, as we are looking for the next 5 days of weather for our cards.
     for (let i = 1; i < 6; i++) {
       let currentDay = weather.daily[i];
       makeFiveDay(currentDay);
-    }
-    // getUVColor();
-  }
-}
+    };
+  };
+};
 
 // //* FUNCTION to create FIVE DAY forecast cards. Attribute details pulled directly from bootstrap cards.
 function makeFiveDay(day) {
@@ -158,7 +155,7 @@ function makeFiveDay(day) {
   cardContainer.append(cardBody);
 
   //* Card Title (our future day DATE)
-  let cardTitle = document.createElement("h6");
+  let cardTitle = document.createElement("p");
   cardTitle.setAttribute("class", "card-title");
   cardTitle.textContent = date;
   cardContainer.append(cardTitle);
@@ -192,9 +189,22 @@ function makeFiveDay(day) {
 
   return cardContainer;
   cardContainer.append(fiveDayEl);
-}
+};
 
-init();
+
+function getUVColor(uvIndex) {
+  if (uvIndex >= 0 && uvIndex <= 2) {
+    return ".green";
+  } else if (uvIndex >= 3 && uvIndex <= 5) {
+    return ".yellow";
+  } else if (uvIndex >= 6 && uvIndex <= 10) {
+    return ".red";
+  }
+  //num is between whatever and etc) {return green;}
+  //then call function in the weather render to span over the uv index)
+};
+
+
 
 //* THE ONE BUTTON TO RULE THEM ALL
 searchBtn.addEventListener("click", function (event) {
@@ -225,28 +235,12 @@ searchHistEl.addEventListener("click", function (event) {
   }
 });
 
-//todo BUILD COLOR CODING FUNCTION
-//write getUVColor function00
-// //*COLOR CODING FOR
-//   //*  -favorable
-//   //*   -moderate
-//   //*    -severe
-//   //*then return whatever the classs
+init();
 
-function getUVColor(uvIndex) {
-  if (uvIndex >= 0 && uvIndex <= 2) {
-    return ".green";
-  } else if (uvIndex >= 3 && uvIndex <= 5) {
-    return ".yellow";
-  } else if (uvIndex >= 6 && uvIndex <= 10) {
-    return ".red";
-  }
 
-  //num is between whatever and etc) {return green;}
-  //then call function in the weather render to span over the uv index)
-}
+
 
 //TODO: make text smaller for a better fit on the 5-day cards
 //TODO: limit search history results to 5 cities/locations
-//TODO: Change icon size in 5-day
+
 //todo: darker background for 5-day

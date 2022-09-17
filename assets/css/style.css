@@ -10,8 +10,8 @@ h4 {
   background-image: linear-gradient(to left, rgb(123, 14, 169), rgb(12, 107, 239));
 };
 
-.cardContainer {
-  background-color: rgb(203, 163, 54);
+.card bg-info {
+  background-color: rgb(168, 130, 26);
 }
 
 .blue{
@@ -29,4 +29,11 @@ h4 {
   color: white;
 }
 
-//give color for font, as well white text
+.card-title {
+  text-decoration: underline;
+  font-size: 20px;
+}
+
+.card-text {
+  font-size: 14px;
+}
