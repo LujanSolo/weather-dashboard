@@ -15,7 +15,7 @@ let searchHistoryBucket = [];
 //* FUNCTION to run at PAGELOAD, called at end of this file
 function init() {
   let storedCities = JSON.parse(localStorage.getItem("Loc."));
-  console.log(storedCities);
+
   // if local storage isn't empty, update bucket with stored entries
   if (storedCities !== null) {
     searchHistoryBucket = storedCities;
@@ -63,7 +63,6 @@ function fetchCoords(city) {
 
   //* METHOD to feed previous API's City coordinates into "data-rich" API. Note: this is a workaround for the "data-rich" API requiring long. and lat. coordinates to search for unique weather locations.
   function fetchWeather(lat, lon) {
-    console.log("The coordinates are latitude:", lat, " and longitude:", lon);
 
     let url =
       "https://pro.openweathermap.org/data/2.5/onecall?lat=" +
@@ -77,14 +76,13 @@ function fetchCoords(city) {
       .then((response) => response.json())
       .then((data) => renderWeather(data));
   }
-
+//* THE RENDER WEATHER function
   function renderWeather(weather) {
     console.log(weather);
-
     let results = document.getElementById("main-display");
     results.setAttribute(
       "class",
-      "border border-2 border-dark bg-primary pl-5 text-light"
+      "border border-2 border-dark bg-primary px-3 text-light"
     );
     //todo INDENT TEXT IN THE DIV TO SEPARATE FROM BORDER
 
@@ -128,29 +126,30 @@ function fetchCoords(city) {
     results.append(humidity);
 
     let uvIndex = document.createElement("p");
-    uvIndex.innerHTML = "UV Index:<span class='colorCode'> " + weather.current.uvi + "</span>";
+    
+    uvIndex.innerHTML = "UV Index: <span class='colorCode'> " + weather.current.uvi + "</span>";
     results.append(uvIndex);
-    document.querySelector(".colorCode").classList.add("red")
+    document.querySelector('.colorCode').classList.add(getUVColor());
 
     //* FOR LOOP set to i=1, as we are looking for the next 5 days of weather for our cards.
     for (let i = 1; i < 6; i++) {
       let currentDay = weather.daily[i];
       makeFiveDay(currentDay);
     }
+    // getUVColor();
   }
 }
 
 // //* FUNCTION to create FIVE DAY forecast cards. Attribute details pulled directly from bootstrap cards.
 function makeFiveDay(day) {
-  console.log(day);
+
   //* sets the "Five Day Forecast" header to display upon five day rendering
   fiveDayHeader.style.display = "";
 
   let date = new Date(day.dt * 1000).toDateString();
-  console.log(date);
 
   let cardContainer = document.createElement("div");
-  cardContainer.setAttribute("class", "card bg-primary col m-1");
+  cardContainer.setAttribute("class", "card bg-info col m-1");
   cardContainer.style.width = "15rem";
   fiveDayEl.append(cardContainer);
 
@@ -160,7 +159,7 @@ function makeFiveDay(day) {
 
   //* Card Title (our future day DATE)
   let cardTitle = document.createElement("h6");
-  cardTitle.setAttribute("class", "card-title ");
+  cardTitle.setAttribute("class", "card-title");
   cardTitle.textContent = date;
   cardContainer.append(cardTitle);
 
@@ -177,7 +176,6 @@ function makeFiveDay(day) {
   let cardTemp = document.createElement("p");
   cardTemp.setAttribute("class", "card-text");
   cardTemp.textContent = "Temp: " + day.temp.max;
-  console.log(day.temp.max);
   cardContainer.append(cardTemp);
 
   //* Wind readout:
@@ -216,7 +214,6 @@ searchBtn.addEventListener("click", function (event) {
   userInput.value = "";
 
   fetchCoords(userCity);
-  console.log(userCity);
   storeCities();
   showHistory();
 });
@@ -236,9 +233,13 @@ searchHistEl.addEventListener("click", function (event) {
 //   //*    -severe
 //   //*then return whatever the classs
 
-function getUVColor () {
-  if (uvIndex <= 2){
-    
+function getUVColor(uvIndex) {
+  if (uvIndex >= 0 && uvIndex <= 2) {
+    return ".green";
+  } else if (uvIndex >= 3 && uvIndex <= 5) {
+    return ".yellow";
+  } else if (uvIndex >= 6 && uvIndex <= 10) {
+    return ".red";
   }
 
   //num is between whatever and etc) {return green;}
