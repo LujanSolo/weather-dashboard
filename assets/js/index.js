@@ -67,7 +67,7 @@ function fetchCoords(city) {
 
   function renderWeather(weather) {
     console.log(weather);
-  
+    
     let results = document.getElementById("main-display");
     results.setAttribute('class', "border border-2 border-dark bg-primary text-light");
     
@@ -78,9 +78,13 @@ function fetchCoords(city) {
     
     //* shortcut to weather array details
     let weatherDetails = weather.current.weather[0];
-
+    
+    //* Clears out current weather data if there is any
     if (results !== null) {
       results.innerHTML = "";
+    }
+    if (fiveDayEl !== null) {
+      fiveDayEl.innerHTML =""
     }
 
     //* Items below to populate current weather in "results" div 
@@ -120,7 +124,10 @@ function fetchCoords(city) {
 // //* FUNCTION to create FIVE DAY forecast cards. Attribute details pulled directly from bootstrap cards. 
 function makeFiveDay(day) {
   console.log(day);
+  //* sets the "Five Day Forecast" header to display upon five day rendering
   fiveDayHeader.style.display = "";
+
+  
   let date = (new Date(day.dt*1000).toDateString()); 
   console.log(date);
 
