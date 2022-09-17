@@ -196,7 +196,6 @@ function makeFiveDay(day) {
 };
 
 function getUVColor(uvIndex) {
-  console.log(uvIndex);
   if (uvIndex > 0 && uvIndex < 3) {
     return "favorable";
   } else if (uvIndex >= 3 && uvIndex <= 7) {
