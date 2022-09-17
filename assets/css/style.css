@@ -13,3 +13,20 @@ h4 {
 .cardContainer {
   background-color: rgb(203, 163, 54);
 }
+
+.blue{
+  background-color: green;
+  color: white;
+}
+
+.red{
+  background-color: red;
+  color: white;
+}
+
+.yellow{
+  background-color: yellow;
+  color: white;
+}
+
+//give color for font, as well white text

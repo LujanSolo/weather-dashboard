@@ -84,7 +84,7 @@ function fetchCoords(city) {
     let results = document.getElementById("main-display");
     results.setAttribute(
       "class",
-      "border border-2 border-dark bg-primary text-light"
+      "border border-2 border-dark bg-primary pl-5 text-light"
     );
     //todo INDENT TEXT IN THE DIV TO SEPARATE FROM BORDER
 
@@ -128,9 +128,9 @@ function fetchCoords(city) {
     results.append(humidity);
 
     let uvIndex = document.createElement("p");
-    uvIndex.innerHTML = "UV Index: " + weather.current.uvi;
+    uvIndex.innerHTML = "UV Index:<span class='colorCode'> " + weather.current.uvi + "</span>";
     results.append(uvIndex);
-    //todo: Add color coded <SPAN> over uvIndex
+    document.querySelector(".colorCode").classList.add("red")
 
     //* FOR LOOP set to i=1, as we are looking for the next 5 days of weather for our cards.
     for (let i = 1; i < 6; i++) {
@@ -165,12 +165,12 @@ function makeFiveDay(day) {
   cardContainer.append(cardTitle);
 
   //* Descriptive weather Icon
-  //todo GET ICON TO ALWAYS SET AT END OF TITLE(DATE) maybe pseudo? float?
   let cardIcon = document.createElement("img");
   cardIcon.setAttribute(
     "src",
     "http://openweathermap.org/img/wn/" + day.weather[0].icon + ".png"
   );
+  cardIcon.classList.add("w-50");
   cardContainer.append(cardIcon);
 
   //* Temperature readout:
@@ -229,19 +229,21 @@ searchHistEl.addEventListener("click", function (event) {
 });
 
 //todo BUILD COLOR CODING FUNCTION
-// //write getUVColor function00
-// // //*COLOR CODING FOR
-// //   //*  -favorable
-// //   //*   -moderate
-// //   //*    -severe
-// //   //*then return whatever the classs
+//write getUVColor function00
+// //*COLOR CODING FOR
+//   //*  -favorable
+//   //*   -moderate
+//   //*    -severe
+//   //*then return whatever the classs
 
-// function getUVColor () {
-//   if
+function getUVColor () {
+  if (uvIndex <= 2){
+    
+  }
 
-//   //num is between whatever and etc) {return green;}
-//   //then call function in the weather render to span over the uv index)
-// }
+  //num is between whatever and etc) {return green;}
+  //then call function in the weather render to span over the uv index)
+}
 
 //TODO: make text smaller for a better fit on the 5-day cards
 //TODO: limit search history results to 5 cities/locations
