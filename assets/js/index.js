@@ -149,7 +149,7 @@ function makeFiveDay(day) {
   let date = new Date(day.dt * 1000).toDateString();
 
   let cardContainer = document.createElement("div");
-  cardContainer.setAttribute("class", "card-container col m-1");
+  cardContainer.setAttribute("class", "card-container col m-1 pt-1 pb-1");
 
   fiveDayEl.append(cardContainer);
 
@@ -176,13 +176,13 @@ function makeFiveDay(day) {
   //* Temperature readout:
   let cardTemp = document.createElement("p");
   cardTemp.setAttribute("class", "card-text text-white");
-  cardTemp.textContent = "Temp: " + day.temp.max;
+  cardTemp.textContent = "Temp: " + day.temp.max + "°";
   cardContainer.appendChild(cardTemp);
 
   //* Wind readout:
   let cardWind = document.createElement("p");
   cardWind.setAttribute("class", "card-text text-white");
-  cardWind.textContent = "Wind: " + day.wind_speed + "mph";
+  cardWind.textContent = "Wind: " + day.wind_speed + " mph";
   cardContainer.appendChild(cardWind);
 
   //* Humidity Readout
@@ -198,11 +198,11 @@ function makeFiveDay(day) {
 function getUVColor(uvIndex) {
   console.log(uvIndex);
   if (uvIndex > 0 && uvIndex < 3) {
-    return "green";
-  } else if (uvIndex >= 3 && uvIndex <= 6) {
-    return "yellow";
-  } else if (uvIndex > 6) {
-    return "red";
+    return "favorable";
+  } else if (uvIndex >= 3 && uvIndex <= 7) {
+    return "moderate";
+  } else if (uvIndex > 7) {
+    return "severe";
   }
 };
 

@@ -3,18 +3,19 @@
 }
 
 /** green, yellow, and red coding for favorable, moderate, or severe conditions in uvIndex */
-.green {
+.favorable {
   background-color: green;
   color: white;
 }
-.red {
-  background-color: red;
+.moderate {
+  background-color: orange;
   color: white;
 }
-.yellow {
-  background-color: yellow;
+.severe {
+  background-color: darkred;
   color: white;
 }
+
 
 /** modifications to the 5day cards*/
 .card-title {
