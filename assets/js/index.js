@@ -85,7 +85,7 @@ function fetchCoords(city) {
     );
 
     //*  a UNIX TIMESTAMP CONVERTER to take unix value from API and convert it to a readable format
-    let unixTimestamp = weather.current.dt * 1000;
+    let unixTimestamp = weather.current.list.dt * 1000;
     let day = new Date(unixTimestamp).toDateString();
 
     //* shortcut to weather array details
